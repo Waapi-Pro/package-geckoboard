@@ -6,9 +6,13 @@
     "target": "es2019",
     "strict": true,
     "resolveJsonModule": true,
-    "allowJs": true,
-    "baseUrl": "src"
+    "declaration": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "scripts"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
