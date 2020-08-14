@@ -1,15 +1,24 @@
 {
-  "name": "@waapi/geckoboard",
+  "name": "geckoboard-async-await",
   "author": {
     "name": "waapi"
   },
   "preferGlobal": true,
   "description": "Geckoboard with async / await and typescript",
   "main": "dist/index.js",
-  "version": "1.0.0",
+  "keywords": ["geckoboard"],
+  "version": "1.0.1",
   "engines": {
     "node": "13.11.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Waapi-Pro/package-geckoboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Waapi-Pro/package-geckoboard/issues"
+  },
+  "homepage": "https://github.com/Waapi-Pro/package-geckoboard",
   "scripts": {
     "build": "tsc",
     "publish-package": "tsc && npm version patch && npm publish --access=public",
