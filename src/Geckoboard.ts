@@ -7,7 +7,7 @@ export interface GeckoboardInstance {
     };
 }
 
-interface DatasetMeta {
+export interface DatasetMeta {
     id: string;
     fields: {
         [key: string]: {
