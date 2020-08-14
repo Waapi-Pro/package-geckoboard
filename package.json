@@ -6,6 +6,7 @@
   "preferGlobal": true,
   "description": "Geckoboard with async / await and typescript",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "geckoboard"
   ],
@@ -22,23 +23,11 @@
   },
   "homepage": "https://github.com/Waapi-Pro/package-geckoboard",
   "scripts": {
-    "build": "tsc",
-    "publish-package": "tsc && npm version patch && npm publish --access=public",
-    "error": "eslint --ext .js,.jsx,.ts,.tsx ./",
-    "fix-error": "eslint --fix --ext .js,.jsx,.ts,.tsx ./",
-    "prettify": "prettier --write --config .prettierrc.js"
+    "prepublish": "tsc",
+    "publish-package": "npm version patch && npm publish --access=public"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.153",
-    "body-parser": "^1.19.0",
-    "chalk": "^2.4.2",
-    "cors": "^2.8.4",
-    "dotenv": "^6.1.0",
-    "error-stack-parser": "^2.0.6",
-    "geckoboard": "^1.2.0",
-    "moment": "^2.26.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "geckoboard": "^1.2.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.0",
