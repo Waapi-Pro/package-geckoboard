@@ -1,0 +1,51 @@
+{
+  "name": "@waapi/geckoboard",
+  "author": {
+    "name": "waapi"
+  },
+  "preferGlobal": true,
+  "description": "Geckoboard with async / await and typescript",
+  "main": "dist/index.js",
+  "version": "1.0.0",
+  "engines": {
+    "node": "13.11.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "publish-package": "tsc && npm version patch && npm publish --access=public",
+    "error": "eslint --ext .js,.jsx,.ts,.tsx ./",
+    "fix-error": "eslint --fix --ext .js,.jsx,.ts,.tsx ./",
+    "prettify": "prettier --write --config .prettierrc.js"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.153",
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
+    "error-stack-parser": "^2.0.6",
+    "geckoboard": "^1.2.0",
+    "moment": "^2.26.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^13.7.7",
+    "@types/supertest": "^2.0.9",
+    "@types/validator": "^12.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^7.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "jest": "^25.5.4",
+    "js-beautify": "^1.11.0",
+    "prettier": "^2.0.5",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3"
+  },
+  "license": "ISC"
+}
