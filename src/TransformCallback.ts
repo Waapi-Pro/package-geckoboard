@@ -6,16 +6,23 @@ import {
     GeckoboardInstanceAsync, GeckoboardResponse,
 } from "./Geckoboard";
 
-function transformDatasetToAsync(dataset: DatasetInstance, fields: DatasetMeta["fields"]): DatasetInstanceAsync {
+async function useLogger(errorContent: string, logger?: (error: string) => Promise<void> | void) {
+    if (typeof logger !== "function") return;
+    logger(errorContent);
+}
+
+function transformDatasetToAsync(dataset: DatasetInstance, fields: DatasetMeta["fields"], logger?: (error: string) => Promise<void> | void): DatasetInstanceAsync {
     return {
         async add(body, options = {}) {
             const state = validData(fields, body);
             if (!state.success) {
+                useLogger(state.content, logger);
                 return state;
             }
             return new Promise((resolve, reject) => {
                 dataset.post(body, options, (err: string) => {
                     if (err) {
+                        useLogger(err, logger);
                         return resolve({success: false, content: err});
                     }
                     return resolve({success: true});
@@ -25,11 +32,13 @@ function transformDatasetToAsync(dataset: DatasetInstance, fields: DatasetMeta["
         async set(body) {
             const state = validData(fields, body);
             if (!state.success) {
+                useLogger(state.content, logger);
                 return state;
             }
             return new Promise((resolve, reject) => {
                 dataset.put(body, (err: string) => {
                     if (err) {
+                        useLogger(err, logger);
                         return resolve({success: false, content: err});
                     }
                     return resolve({success: true});
@@ -39,13 +48,14 @@ function transformDatasetToAsync(dataset: DatasetInstance, fields: DatasetMeta["
     };
 }
 
-export default function TransformCallback(gb: GeckoboardInstance): GeckoboardInstanceAsync {
+export default function TransformCallback(gb: GeckoboardInstance, logger?: (error: string) => Promise<void> | void): GeckoboardInstanceAsync {
     return {
         VERSION: gb.VERSION,
         ping: () => {
             return new Promise((resolve, reject) => {
                 gb.ping((err: string) => {
                     if (err) {
+                        useLogger(err, logger);
                         return resolve({success: false, content: err});
                     }
                     return resolve({success: true});
@@ -56,14 +66,16 @@ export default function TransformCallback(gb: GeckoboardInstance): GeckoboardIns
             findOrCreate: async (body: DatasetMeta) => {
                 const state = validateDataset(body);
                 if (!state.success) {
+                    useLogger(state.content, logger);
                     return state;
                 }
                 return new Promise((resolve, reject) => {
                     gb.datasets.findOrCreate(body, (err: string, dataset: DatasetInstance) => {
                         if (err) {
+                            useLogger(err, logger);
                             return resolve({success: false, content: err});
                         }
-                        return resolve({success: true, dataset: transformDatasetToAsync(dataset, body.fields)});
+                        return resolve({success: true, dataset: transformDatasetToAsync(dataset, body.fields, logger)});
                     });
                 });
             },
@@ -71,6 +83,7 @@ export default function TransformCallback(gb: GeckoboardInstance): GeckoboardIns
                 return new Promise((resolve, reject) => {
                     gb.datasets.delete(id, (err: string) => {
                         if (err) {
+                            useLogger(err, logger);
                             return resolve({success: false, content: err});
                         }
                         return resolve({success: true});
