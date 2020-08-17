@@ -4,7 +4,7 @@ import {
     DatasetMeta,
     GeckoboardInstance,
     GeckoboardInstanceAsync, GeckoboardResponse,
-} from "./Geckoboard";
+} from "./GeckoboardInstance";
 
 async function useLogger(errorContent: string, logger?: (error: string) => Promise<void> | void) {
     if (typeof logger !== "function") return;
