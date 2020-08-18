@@ -319,10 +319,11 @@ function validData(fields: DatasetMeta["fields"], datas: Array<{ [key: string]: 
             }
             const value = data[dataKey];
             const type = fields[dataKey].type;
-            if ((["number", "percentage", "money"].indexOf(type) !== -1 && typeof value === "string") || typeof value !== "string") {
+            if ((["number", "percentage", "money"].indexOf(type) !== -1 && typeof value === "string")
+                || (["number", "percentage", "money"].indexOf(type) === -1 && typeof value !== "string")) {
                 return {
                     success: false,
-                    content: `Data value not matching with the type of the attributes`,
+                    content: `Data value (${value} of type ${typeof value}) not matching with the type of the attributes ${type}`,
                 };
             }
         }
